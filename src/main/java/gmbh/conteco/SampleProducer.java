@@ -25,4 +25,9 @@ public class SampleProducer {
         producer.close();
 
     }
+
+    public static void main(String[] args) {
+        new SampleProducer();
+    }
+
 }
