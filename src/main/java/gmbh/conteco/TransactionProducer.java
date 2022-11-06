@@ -35,22 +35,31 @@ public class TransactionProducer {
 
         KafkaProducer<Long, String> producer = new KafkaProducer<>(config);
 
+        Runtime.getRuntime().addShutdownHook(new Thread(producer::close));
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("New Message");
         producer.initTransactions();
         producer.beginTransaction();
         long i = 0;
+        int count = 0;
 
         while (true) {
             System.out.println("Press enter to commit messages or type in new message");
             String text = scanner.nextLine();
             if (text.equals("")) {
+                if (count == 0) {
+                    producer.abortTransaction();
+                    return;
+                }
                 producer.commitTransaction();
-                System.out.println("New Message");
+                System.out.println("New Message. Or press enter to end Producer.");
                 producer.beginTransaction();
+                count = 0;
                 continue;
             }
+            count++;
 
             producer.send(new ProducerRecord<>(topic, i, text));
             i++;
