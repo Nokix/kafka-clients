@@ -22,24 +22,30 @@ public class TweetConsoleProducer {
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, TweetSerializer.class.getName());
 
-        KafkaProducer<Long, Tweet> producer = new KafkaProducer<>(properties);
-        String topic = "tweets";
-        Runtime.getRuntime().addShutdownHook(new Thread(producer::close));
+        try(KafkaProducer<Long, Tweet> producer = new KafkaProducer<>(properties)) {
+            String topic = "tweets";
+            Runtime.getRuntime().addShutdownHook(new Thread(producer::close));
 
-        while (true) {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Insert Tweet:");
-            String text = scanner.nextLine();
-            System.out.println("Language Englisch? [Y|n]");
-            String isEnglishLine = scanner.nextLine();
-            boolean isEnglish = isEnglishLine.equals("Y") || isEnglishLine.equals("y");
+            while (true) {
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Insert Tweet:");
+                String text = scanner.nextLine();
 
-            long tweetId = nextTweetId();
-            Tweet tweet = new Tweet(tweetId, isEnglish ? "eng" : "non", text);
-            System.out.println(tweet);
+                if (text.equals("")) {
+                    return;
+                }
 
-            ProducerRecord<Long, Tweet> record = new ProducerRecord<>(topic, tweetId, tweet);
-            producer.send(record);
+                System.out.println("Language Englisch? [Y|n]");
+                String isEnglishText = scanner.nextLine();
+
+                boolean isEnglish = isEnglishText.equalsIgnoreCase("y");
+                long tweetId = nextTweetId();
+                Tweet tweet = new Tweet(tweetId, isEnglish ? "eng" : "non", text);
+                System.out.println(tweet);
+
+                ProducerRecord<Long, Tweet> record = new ProducerRecord<>(topic, tweetId, tweet);
+                producer.send(record);
+            }
         }
     }
 }

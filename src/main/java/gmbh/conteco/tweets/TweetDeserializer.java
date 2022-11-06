@@ -10,7 +10,9 @@ public class TweetDeserializer implements Deserializer<Tweet> {
 
     @Override
     public Tweet deserialize(String s, byte[] bytes) {
-        if (bytes == null) return null;
+        if (bytes == null)
+            return null;
+
         return gson.fromJson(new String(bytes, StandardCharsets.UTF_8), Tweet.class);
     }
 }
