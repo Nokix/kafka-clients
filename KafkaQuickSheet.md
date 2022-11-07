@@ -4,8 +4,8 @@
 
 
 ```
-$ sudo apt update
-$ sudo apt install snapd
+sudo apt update
+sudo apt install snapd
 ```
 
 
@@ -14,15 +14,15 @@ $ sudo apt install snapd
 
 
 ```
-$ sudo snap install intellij-idea-community --classic
+sudo snap install intellij-idea-community --classic
 ```
 
 ## Java 17 installieren
 
 
 ```
-$ sudo apt update
-$ sudo apt install openjdk-17-jdk
+sudo apt update
+sudo apt install openjdk-17-jdk
 ```
 
 
@@ -31,10 +31,10 @@ $ sudo apt install openjdk-17-jdk
 
 
 ```
-$ wget "https://downloads.apache.org/kafka/3.3.1/kafka_2.13-3.3.1.tgz"
-$ tar xfz kafka_2.13-3.3.1.tgz
-$ rm kafka_2.13-3.3.1.tgz
-$ mv kafka_2.13-3.3.1 kafka
+wget "https://downloads.apache.org/kafka/3.3.1/kafka_2.13-3.3.1.tgz"
+tar xfz kafka_2.13-3.3.1.tgz
+rm kafka_2.13-3.3.1.tgz
+mv kafka_2.13-3.3.1 kafka
 ```
 
 
@@ -46,11 +46,18 @@ $ mv kafka_2.13-3.3.1 kafka
 
 ### Single Broker:
 
+In den Ordnern mit den Shell-skripten wechseln:
+
+
+```
+cd ~/kafka/bin
+```
+
 Ordner für Cluster erstellen:
 
 
 ```
-$ mkdir ~/kafka/cluster0
+mkdir ~/kafka/cluster0
 ```
 
 
@@ -58,7 +65,7 @@ Properties Datei kopieren
 
 
 ```
-$ cp ~/kafka/config/kraft/server.properties ~/kafka/cluster0/server.properties
+cp ~/kafka/config/kraft/server.properties ~/kafka/cluster0/server.properties
 ```
 
 
@@ -66,8 +73,7 @@ Datei `server.properties` ändern (Zeile 78): (Achtung: qualifizierte Referenz v
 
 
 ```
-log.dirs=/tmp/kraft-combined-logs
-log.dirs=/home/viktor/kafka/cluster0/broker1
+log.dirs=/home/sl01/kafka/cluster0/broker1
 ```
 
 
@@ -75,7 +81,7 @@ Cluster-ID generieren:
 
 
 ```
-$ CID="$(kafka-storage.sh random-uuid)"
+CID="$(./kafka-storage.sh random-uuid)"
 ```
 
 
@@ -83,7 +89,7 @@ Metadateien anlegen:
 
 
 ```
-$ kafka-storage.sh format -t $CID -c ~/kafka/cluster0/server.properties
+./kafka-storage.sh format -t $CID -c ~/kafka/cluster0/server.properties
 ```
 
 
@@ -91,7 +97,7 @@ Broker starten:
 
 
 ```
-$ kafka-server-start.sh ~/kafka/cluster0/server.properties
+./kafka-server-start.sh ~/kafka/cluster0/server.properties
 ```
 
 
@@ -100,7 +106,7 @@ $ kafka-server-start.sh ~/kafka/cluster0/server.properties
 
 
 ```
-$ kafka-topics.sh --create \
+./kafka-topics.sh --create \
     --topic test \
     --partitions 1 \
     --replication-factor 1 \
@@ -122,7 +128,7 @@ cleanup-policy festlegen:
 
 
 ```
-$ kafka-topics.sh --list --bootstrap-server=localhost:9092
+./kafka-topics.sh --list --bootstrap-server=localhost:9092
 ```
 
 
@@ -139,7 +145,7 @@ Unterreplizierte Partitionen anzeigen:
 
 
 ```
-$ kafka-topics.sh --describe --topic test --bootstrap-server:9092
+./kafka-topics.sh --describe --topic test --bootstrap-server:9092
 ```
 
 
@@ -148,7 +154,7 @@ $ kafka-topics.sh --describe --topic test --bootstrap-server:9092
 
 
 ```
-$ kafka-topics.sh --delete --topic test --bootstrap-server=localhost:9092
+./kafka-topics.sh --delete --topic test --bootstrap-server=localhost:9092
 ```
 
 
@@ -157,7 +163,7 @@ $ kafka-topics.sh --delete --topic test --bootstrap-server=localhost:9092
 
 
 ```
-$ kafka-topics.sh --alter --topic test \
+./kafka-topics.sh --alter --topic test \
     --partitions 2 \
     --bootstrap-server=localhost:9092
 ```
@@ -168,7 +174,7 @@ $ kafka-topics.sh --alter --topic test \
 
 
 ```
-$ kafka-console-producer.sh --topic test --boostrap-server localhost:9092
+./kafka-console-producer.sh --topic test --boostrap-server localhost:9092
 ```
 
 
@@ -258,7 +264,7 @@ compression.type=[none,gzip,zstd,snappy,lz4]
 
 
 ```
-$ kafka-consumer-perf-test.sh --topic perf-test \
+./kafka-consumer-perf-test.sh --topic perf-test \
     --messages 10000 \
     --bootstrap-server localhost:9092 \
     --consumer.config ./consumer.properties
@@ -279,7 +285,7 @@ fetch.max.weit.ms: 500
 
 
 ```
-$ kafka-dump-log.sh --files ~kafka/cluster0/brocker1/test-0/0[...]000.log
+./kafka-dump-log.sh --files ~kafka/cluster0/brocker1/test-0/0[...]000.log
 ```
 
 
@@ -290,7 +296,7 @@ Kafdrop von github clonen:
 
 
 ```
-$ git clone https://github.com/obsidiandynamics/kafdrop.git
+./git clone https://github.com/obsidiandynamics/kafdrop.git
 ```
 
 
@@ -304,5 +310,5 @@ In Console ausführen:
 
 
 ```
-$ java --add-opens=java.base/sun.nio.ch=ALL-UNNAMED \
-    -jar target/kafdrop-<version>.jar
+./java --add-opens=java.base/sun.nio.ch=ALL-UNNAMED \
+    -jar ~/kafdrop/target/kafdrop-<version>.jar
