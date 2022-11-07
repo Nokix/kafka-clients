@@ -1,5 +1,21 @@
 # Kafka Quick Sheet
 
+## snap installieren
+
+
+```
+$ sudo apt update
+$ sudo apt install snapd
+```
+
+
+
+## Intelliji installieren
+
+
+```
+$ sudo snap install intellij-idea-community --classic
+```
 
 ## Java 17 installieren
 
