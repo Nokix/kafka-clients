@@ -174,7 +174,7 @@ Unterreplizierte Partitionen anzeigen:
 
 
 ```
-./kafka-console-producer.sh --topic test --boostrap-server localhost:9092
+./kafka-console-producer.sh --topic test --bootstrap-server localhost:9092
 ```
 
 

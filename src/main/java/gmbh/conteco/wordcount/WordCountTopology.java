@@ -1,4 +1,4 @@
-package gmbh.conteco;
+package gmbh.conteco.wordcount;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
