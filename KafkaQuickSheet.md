@@ -296,7 +296,7 @@ Kafdrop von github clonen:
 
 
 ```
-./git clone https://github.com/obsidiandynamics/kafdrop.git
+git clone https://github.com/obsidiandynamics/kafdrop.git
 ```
 
 
@@ -310,5 +310,7 @@ In Console ausführen:
 
 
 ```
-./java --add-opens=java.base/sun.nio.ch=ALL-UNNAMED \
-    -jar ~/kafdrop/target/kafdrop-<version>.jar
+java --add-opens=java.base/sun.nio.ch=ALL-UNNAMED -jar ~/kafdrop/target/kafdrop-<version>.jar
+```
+
+Rufe im Browser kafdrop unter `localhost:9000` auf.

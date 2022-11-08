@@ -13,7 +13,7 @@ public class GreeterTopology {
         builder.stream("users", Consumed.with(Serdes.Void(), Serdes.String()))
                 .filterNot((k, v) -> v.toLowerCase().equals("randy"))
                 .mapValues(v -> "Hallo " + v)
-                .to(("greetings"), Produced.with(Serdes.Void(), Serdes.String()));
+                .to("greetings", Produced.with(Serdes.Void(), Serdes.String()));
 
         return builder.build();
     }
