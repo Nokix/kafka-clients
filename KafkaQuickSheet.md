@@ -73,7 +73,7 @@ Datei `server.properties` ändern (Zeile 78): (Achtung: qualifizierte Referenz v
 
 
 ```
-log.dirs=/home/sl01/kafka/cluster0/broker1
+log.dirs=/home/franz/kafka/cluster0/broker1
 ```
 
 
