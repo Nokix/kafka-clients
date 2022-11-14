@@ -106,12 +106,7 @@ Broker starten:
 
 
 ```
-./kafka-topics.sh --create \
-    --topic test \
-    --partitions 1 \
-    --replication-factor 1 \
-    --bootstrap-server=localhost:9092 \
-    --config min.insync.replicas=1
+./kafka-topics.sh --create --topic test --partitions 2 --bootstrap-server=localhost:9092 
 ```
 
 
@@ -121,7 +116,15 @@ cleanup-policy festlegen:
 ```
 --config cleanup.policy=[compact|delete]
 ```
+Anzahl Replikationen festlegen:
 
+```
+--replication-factor 1
+```
+Minimale Anzhal von In-Sync-Replicas (ISR) bei Nachrichtenproduktion festlegen:
+```
+--config min.insync.replicas=1
+```
 
 
 ## alle Topics anzeigen
@@ -163,9 +166,7 @@ Unterreplizierte Partitionen anzeigen:
 
 
 ```
-./kafka-topics.sh --alter --topic test \
-    --partitions 2 \
-    --bootstrap-server=localhost:9092
+./kafka-topics.sh --alter --topic test --partitions 2 --bootstrap-server=localhost:9092
 ```
 
 
@@ -200,8 +201,7 @@ ACKs einstellen:
 
 
 ```
-$ kafka-console-consumer.sh --topic test \
-    --bootstrap-server localhost:9092
+$ kafka-console-consumer.sh --topic test --bootstrap-server localhost:9092
 ```
 
 
@@ -242,9 +242,7 @@ Static Memebership hinzufügen
 
 
 ```
-$ kafka-producer-perf-test.sh --topic perftest \
-	--num-records 10000 --record-size 1000 --throughput -1 \
-	--producer-props bootstrap.servers=localhost9092
+$ kafka-producer-perf-test.sh --topic perftest --num-records 10000 --record-size 1000 --throughput -1 --producer-props bootstrap.servers=localhost9092
 ```
 
 
@@ -264,10 +262,7 @@ compression.type=[none,gzip,zstd,snappy,lz4]
 
 
 ```
-./kafka-consumer-perf-test.sh --topic perf-test \
-    --messages 10000 \
-    --bootstrap-server localhost:9092 \
-    --consumer.config ./consumer.properties
+./kafka-consumer-perf-test.sh --topic perf-test --messages 10000 --bootstrap-server localhost:9092 --consumer.config ./consumer.properties
 ```
 
 
