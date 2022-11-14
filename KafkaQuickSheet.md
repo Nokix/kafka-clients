@@ -184,7 +184,7 @@ Key senden:
 
 ```
 --property parse.key=true
---property key.seperator=:
+--property key.separator=:
 ```
 
 
