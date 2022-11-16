@@ -201,7 +201,7 @@ ACKs einstellen:
 
 
 ```
-$ kafka-console-consumer.sh --topic test --bootstrap-server localhost:9092
+./kafka-console-consumer.sh --topic test --bootstrap-server localhost:9092
 ```
 
 
@@ -242,7 +242,7 @@ Static Memebership hinzufügen
 
 
 ```
-$ kafka-producer-perf-test.sh --topic perftest --num-records 10000 --record-size 1000 --throughput -1 --producer-props bootstrap.servers=localhost9092
+./kafka-producer-perf-test.sh --topic perftest --num-records 10000 --record-size 1000 --throughput -1 --producer-props bootstrap.servers=localhost9092
 ```
 
 
