@@ -10,12 +10,7 @@ import java.util.Properties;
 
 public class SampleProducer {
     public SampleProducer() throws IOException {
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("application.properties"));
-        //properties.put("bootstrap.servers", "localhost:9092");
-        properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-
+        Properties properties = PropertiesLoader.load();
         KafkaProducer<String,String> producer = new KafkaProducer<>(properties);
 
         String topic = "test";

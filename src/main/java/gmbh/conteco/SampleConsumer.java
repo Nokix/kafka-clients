@@ -1,8 +1,10 @@
 package gmbh.conteco;
 
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -11,11 +13,10 @@ import java.util.Properties;
 
 public class SampleConsumer {
     public SampleConsumer() {
-        Properties properties = new Properties();
-        properties.put("bootstrap.servers", "localhost:9092");
-        properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        properties.put("group.id", "SampleConsumer");
+        Properties properties = PropertiesLoader.load();
+        properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        properties.put("group.id", "SampleConsumer2");
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
 
@@ -29,7 +30,6 @@ public class SampleConsumer {
                 System.out.printf("topic = %s, partition = %d, offset = %d, key = %s, value = %s",
                         record.topic(), record.partition(), record.offset(), record.key(), record.value());
             }
-
         }
     }
 
