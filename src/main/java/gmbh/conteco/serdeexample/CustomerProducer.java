@@ -46,7 +46,10 @@ public class CustomerProducer {
     public CustomerProducer saveRandomCustomers(int amount) {
         Stream.generate(this::createRandomCustomer)
                 .limit(amount)
-                .map(customer -> new ProducerRecord(topic, key, customer))
+                .map(customer -> new ProducerRecord(
+                        topic,
+                        (long) (customer.getCustomerID() % 4),
+                        customer))
                 .forEach(producer::send);
 
         return this;
