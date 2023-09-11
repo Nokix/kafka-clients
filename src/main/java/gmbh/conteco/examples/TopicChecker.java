@@ -1,4 +1,4 @@
-package gmbh.conteco;
+package gmbh.conteco.examples;
 
 import lombok.SneakyThrows;
 import org.apache.kafka.clients.admin.AdminClient;

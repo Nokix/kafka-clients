@@ -1,4 +1,4 @@
-package gmbh.conteco.serdeexample;
+package gmbh.conteco.examples.serdeexample;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

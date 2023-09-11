@@ -1,4 +1,4 @@
-package gmbh.conteco.serdeexample;
+package gmbh.conteco.examples.serdeexample;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 

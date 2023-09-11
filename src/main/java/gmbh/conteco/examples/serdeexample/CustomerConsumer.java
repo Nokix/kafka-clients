@@ -1,6 +1,6 @@
-package gmbh.conteco.serdeexample;
+package gmbh.conteco.examples.serdeexample;
 
-import gmbh.conteco.PropertiesLoader;
+import gmbh.conteco.examples.PropertiesLoader;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.LongDeserializer;

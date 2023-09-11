@@ -1,11 +1,9 @@
-package gmbh.conteco;
+package gmbh.conteco.examples;
 
-import gmbh.conteco.serdeexample.Customer;
-import gmbh.conteco.serdeexample.CustomerSerdes;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
+import gmbh.conteco.examples.serdeexample.Customer;
+import gmbh.conteco.examples.serdeexample.CustomerSerdes;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
-import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.KStream;

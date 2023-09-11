@@ -1,4 +1,4 @@
-package gmbh.conteco.tweets;
+package gmbh.conteco.examples.tweets;
 
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serde;

@@ -1,4 +1,4 @@
-package gmbh.conteco;
+package gmbh.conteco.examples;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;

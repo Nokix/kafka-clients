@@ -1,7 +1,7 @@
-package gmbh.conteco.serdeexample;
+package gmbh.conteco.examples.serdeexample;
 
 import com.github.javafaker.Faker;
-import gmbh.conteco.PropertiesLoader;
+import gmbh.conteco.examples.PropertiesLoader;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.kafka.clients.producer.KafkaProducer;

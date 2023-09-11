@@ -1,4 +1,4 @@
-package gmbh.conteco.testexample;
+package gmbh.conteco.examples.testexample;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.*;

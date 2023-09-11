@@ -1,4 +1,4 @@
-package gmbh.conteco.tweets;
+package gmbh.conteco.examples.tweets;
 
 import com.google.gson.Gson;
 import org.apache.kafka.common.serialization.Deserializer;

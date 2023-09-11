@@ -1,4 +1,4 @@
-package gmbh.conteco.tweets;
+package gmbh.conteco.examples.tweets;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

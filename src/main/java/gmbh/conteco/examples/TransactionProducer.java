@@ -1,6 +1,5 @@
-package gmbh.conteco;
+package gmbh.conteco.examples;
 
-import gmbh.conteco.tweets.TweetSerializer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;

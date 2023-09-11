@@ -1,4 +1,4 @@
-package gmbh.conteco;
+package gmbh.conteco.examples;
 
 import java.io.IOException;
 import java.io.InputStream;
