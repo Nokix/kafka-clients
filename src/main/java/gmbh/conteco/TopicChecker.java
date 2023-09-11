@@ -2,19 +2,16 @@ package gmbh.conteco;
 
 import lombok.SneakyThrows;
 import org.apache.kafka.clients.admin.AdminClient;
-import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.TopicListing;
 
-import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
 
 public class TopicChecker {
     private final AdminClient adminClient;
 
     public TopicChecker() {
-        this(PropertiesLoader.load());
+        this(PropertiesLoader.loadDefault());
     }
 
     public TopicChecker(Properties properties) {

@@ -7,13 +7,12 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.time.Duration;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Properties;
 
 public class SampleConsumer {
     public SampleConsumer() {
-        Properties properties = PropertiesLoader.load();
+        Properties properties = PropertiesLoader.loadDefault();
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         properties.put("group.id", "SampleConsumer2");

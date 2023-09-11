@@ -13,7 +13,6 @@ import java.util.Properties;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 @Getter
 @Setter
@@ -30,7 +29,7 @@ public class CustomerProducer {
         this.key = faker.number().numberBetween(1L,99L);
         this.idCounter = new AtomicInteger();
 
-        Properties properties = PropertiesLoader.load();
+        Properties properties = PropertiesLoader.loadDefault();
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, CustomerSerializer.class.getName());
 

@@ -18,7 +18,7 @@ public class CustomerConsumer {
     }
 
     public CustomerConsumer(String groupId, Map<?, ?> props) {
-        Properties properties = PropertiesLoader.load();
+        Properties properties = PropertiesLoader.loadDefault();
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, LongDeserializer.class.getName());
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, CustomerDeserializer.class.getName());
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);

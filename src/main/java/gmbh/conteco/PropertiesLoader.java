@@ -5,8 +5,16 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertiesLoader {
-    public static Properties load() {
-        try (InputStream is = ClassLoader.getSystemResourceAsStream("application.properties")) {
+    public static Properties loadDefault() {
+        return load("application.properties");
+    }
+
+    public static Properties loadConfluent() {
+        return load("confluent.properties");
+    }
+
+    public static Properties load(String recourcesPath) {
+        try (InputStream is = ClassLoader.getSystemResourceAsStream(recourcesPath)) {
             return new Properties() {{
                 this.load(is);
             }};
@@ -16,6 +24,6 @@ public class PropertiesLoader {
     }
 
     public static void main(String[] args) {
-        System.out.println(PropertiesLoader.load());
+        System.out.println(PropertiesLoader.loadDefault());
     }
 }

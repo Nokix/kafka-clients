@@ -3,14 +3,12 @@ package gmbh.conteco;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
 public class SampleProducer {
     public SampleProducer() throws IOException {
-        Properties properties = PropertiesLoader.load();
+        Properties properties = PropertiesLoader.loadDefault();
         KafkaProducer<String,String> producer = new KafkaProducer<>(properties);
 
         String topic = "test";
