@@ -31,7 +31,7 @@ sudo apt install openjdk-17-jdk
 
 
 ```
-wget "https://downloads.apache.org/kafka/3.3.1/kafka_2.13-3.3.1.tgz"
+wget "https://archive.apache.org/dist/kafka/3.3.1/kafka_2.13-3.3.1.tgz"
 tar xfz kafka_2.13-3.3.1.tgz
 rm kafka_2.13-3.3.1.tgz
 mv kafka_2.13-3.3.1 kafka
@@ -43,11 +43,9 @@ mv kafka_2.13-3.3.1 kafka
 
 [Link](https://kafka.apache.org/quickstart#quickstart_startserver)
 
-
 ### Single Broker:
 
 In den Ordnern mit den Shell-skripten wechseln:
-
 
 ```
 cd ~/kafka/bin
@@ -55,46 +53,33 @@ cd ~/kafka/bin
 
 Ordner für Cluster erstellen:
 
-
 ```
 mkdir ~/kafka/cluster0
 ```
 
-
 Properties Datei kopieren
-
 
 ```
 cp ~/kafka/config/kraft/server.properties ~/kafka/cluster0/server.properties
 ```
 
-
 Datei `server.properties` ändern (Zeile 78): (Achtung: qualifizierte Referenz verwenden! Nicht ~/…)
 
-
 ```
-log.dirs=/home/franz/kafka/cluster0/broker1
+log.dirs=/home/<user>/kafka/cluster0/broker1
 ```
-
-
 Cluster-ID generieren:
-
 
 ```
 CID="$(./kafka-storage.sh random-uuid)"
 ```
 
-
 Metadateien anlegen:
-
-
 ```
 ./kafka-storage.sh format -t $CID -c ~/kafka/cluster0/server.properties
 ```
 
-
 Broker starten:
-
 
 ```
 ./kafka-server-start.sh ~/kafka/cluster0/server.properties
@@ -121,7 +106,7 @@ Anzahl Replikationen festlegen:
 ```
 --replication-factor 1
 ```
-Minimale Anzhal von In-Sync-Replicas (ISR) bei Nachrichtenproduktion festlegen:
+Minimale Anzahl von In-Sync-Replicas (ISR) bei Nachrichtenproduktion festlegen:
 ```
 --config min.insync.replicas=1
 ```
@@ -315,27 +300,27 @@ Rufe im Browser kafdrop unter `localhost:9000` auf.
 
 Ordner für Cluster erstellen:
 ```
-$ mkdir ~/kafka/cluster1
+mkdir ~/kafka/cluster1
 ```
 
 Ordner für zookeeper erstellen:
 ```
-$ mkdir -p ~/kafka/cluster1/zk1
-$ mkdir -p ~/kafka/cluster1/zk2
-$ mkdir -p ~/kafka/cluster1/zk3
+mkdir -p ~/kafka/cluster1/zk1
+mkdir -p ~/kafka/cluster1/zk2
+mkdir -p ~/kafka/cluster1/zk3
 ```
 
 IDs für Zookeepper definieren:
 ```
-$ echo 1 > ~/kafka/cluster1/zk1/myid
-$ echo 2 > ~/kafka/cluster1/zk2/myid
-$ echo 3 > ~/kafka/cluster1/zk3/myid
+echo 1 > ~/kafka/cluster1/zk1/myid
+echo 2 > ~/kafka/cluster1/zk2/myid
+echo 3 > ~/kafka/cluster1/zk3/myid
 ```
 
 Property Dateien für die Zookeeper erstellen (~/kafka/cluster1/zk1.properties):
 ```
-clientPort=2181
-dataDir=/home/<user>/kafka/cluster1/zk1
+clientPort=218*1*
+dataDir=/home/<user>/kafka/cluster1/zk*1*
 client.secure=false
 tickTime=2000
 initLimit=10
@@ -346,14 +331,14 @@ Analoge Dateien für zk2 und zk3 erstellen.
 
 Zookeeper starten (jeweils im eigenen Tab):
 ```
-$ ./kafka/bin/zookeeper-server-start.sh ~/kafka/cluster1/zk1.properties
-$ ./kafka/bin/zookeeper-server-start.sh ~/kafka/cluster1/zk2.properties
-$ ./kafka/bin/zookeeper-server-start.sh ~/kafka/cluster1/zk3.properties
+./kafka/bin/zookeeper-server-start.sh ~/kafka/cluster1/zk1.properties
+./kafka/bin/zookeeper-server-start.sh ~/kafka/cluster1/zk2.properties
+./kafka/bin/zookeeper-server-start.sh ~/kafka/cluster1/zk3.properties
 ```
 
 Prüfe, ob Zookeeper online sind:
 ```
-$ ./kafka/bin/zookeeper-shell.sh localhost:2181 ls /
+./kafka/bin/zookeeper-shell.sh localhost:2181 ls /
 ```
 
 Erwartete Ausgabe:
@@ -368,16 +353,16 @@ WatchedEvent state:SyncConnected type:None path:null
 
 Ordner für Kafkabroker anlegen:
 ```
-$ mkdir -p ~/kafka/cluster1/broker1
-$ mkdir -p ~/kafka/cluster1/broker2
-$ mkdir -p ~/kafka/cluster1/broker3
+mkdir -p ~/kafka/cluster1/broker1
+mkdir -p ~/kafka/cluster1/broker2
+mkdir -p ~/kafka/cluster1/broker3
 ```
 
 Property Dateien für Broker erstellen (~/kafka/cluster1/broker1.properties):
 ```
-broker.id=1
-log.dirs=/home/<user>/kafka/cluster1/broker1
-listeners=PLAINTEXT://:9092
+broker.id=*1*
+log.dirs=/home/<user>/kafka/cluster1/broker*1*
+listeners=PLAINTEXT://:909*2*
 zookeeper.connect=localhost:2181
 ```
 
@@ -385,14 +370,14 @@ Analoge Dateien für broker2 und broker3 anlegen.
 
 Broker starten (jeweils im eigenen Tab):
 ```
-$ ./kafka/bin/kafka-server-start.sh ~/kafka/cluster1/broker1.properties
-$ ./kafka/bin/kafka-server-start.sh ~/kafka/cluster1/broker2.properties
-$ ./kafka/bin/kafka-server-start.sh ~/kafka/cluster1/broker3.properties
+./kafka/bin/kafka-server-start.sh ~/kafka/cluster1/broker1.properties
+./kafka/bin/kafka-server-start.sh ~/kafka/cluster1/broker2.properties
+./kafka/bin/kafka-server-start.sh ~/kafka/cluster1/broker3.properties
 ```
 
 Prüfe, ob Broker verfügbar sind:
 ```
-$ kafka-broker-api-versions.sh –bootstrap-server localhost:9092
+kafka-broker-api-versions.sh –bootstrap-server localhost:9092
 ```
 
 erwartete Ausgabe:
