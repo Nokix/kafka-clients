@@ -309,3 +309,105 @@ java --add-opens=java.base/sun.nio.ch=ALL-UNNAMED -jar ~/kafdrop/target/kafdrop-
 ```
 
 Rufe im Browser kafdrop unter `localhost:9000` auf.
+
+
+## Mehrere Broker mit Zookeeper starten
+
+Ordner für Cluster erstellen:
+```
+$ mkdir ~/kafka/cluster1
+```
+
+Ordner für zookeeper erstellen:
+```
+$ mkdir -p ~/kafka/cluster1/zk1
+$ mkdir -p ~/kafka/cluster1/zk2
+$ mkdir -p ~/kafka/cluster1/zk3
+```
+
+IDs für Zookeepper definieren:
+```
+$ echo 1 > ~/kafka/cluster1/zk1/myid
+$ echo 2 > ~/kafka/cluster1/zk2/myid
+$ echo 3 > ~/kafka/cluster1/zk3/myid
+```
+
+Property Dateien für die Zookeeper erstellen (~/kafka/cluster1/zk1.properties):
+```
+clientPort=2181
+dataDir=/home/<user>/kafka/cluster1/zk1
+client.secure=false
+tickTime=2000
+initLimit=10
+syncLimit=5
+```
+
+Analoge Dateien für zk2 und zk3 erstellen.
+
+Zookeeper starten (jeweils im eigenen Tab):
+```
+$ ./kafka/bin/zookeeper-server-start.sh ~/kafka/cluster1/zk1.properties
+$ ./kafka/bin/zookeeper-server-start.sh ~/kafka/cluster1/zk2.properties
+$ ./kafka/bin/zookeeper-server-start.sh ~/kafka/cluster1/zk3.properties
+```
+
+Prüfe, ob Zookeeper online sind:
+```
+$ ./kafka/bin/zookeeper-shell.sh localhost:2181 ls /
+```
+
+Erwartete Ausgabe:
+```
+Connecting to localhost:2181
+
+WATCHER::
+
+WatchedEvent state:SyncConnected type:None path:null
+[zookeeper]
+```
+
+Ordner für Kafkabroker anlegen:
+```
+$ mkdir -p ~/kafka/cluster1/broker1
+$ mkdir -p ~/kafka/cluster1/broker2
+$ mkdir -p ~/kafka/cluster1/broker3
+```
+
+Property Dateien für Broker erstellen (~/kafka/cluster1/broker1.properties):
+```
+broker.id=1
+log.dirs=/home/<user>/kafka/cluster1/broker1
+listeners=PLAINTEXT://:9092
+zookeeper.connect=localhost:2181
+```
+
+Analoge Dateien für broker2 und broker3 anlegen.
+
+Broker starten (jeweils im eigenen Tab):
+```
+$ ./kafka/bin/kafka-server-start.sh ~/kafka/cluster1/broker1.properties
+$ ./kafka/bin/kafka-server-start.sh ~/kafka/cluster1/broker2.properties
+$ ./kafka/bin/kafka-server-start.sh ~/kafka/cluster1/broker3.properties
+```
+
+Prüfe, ob Broker verfügbar sind:
+```
+$ kafka-broker-api-versions.sh –bootstrap-server localhost:9092
+```
+
+erwartete Ausgabe:
+```
+localhost:9092 (id: 1 rack: null) -> (
+# Viele Infos
+)
+localhost:9093 (id: 2 rack: null) -> (
+# Viele Infos
+)
+localhost:9094 (id: 3 rack: null) -> (
+# Viele Infos
+)
+```
+
+Wichtig:
+Beim Start: Zuerst Zookeeper starten, dann Broker.
+Beim Beenden: Zuerst Broker herunterfahren, dann Zookeeper.
